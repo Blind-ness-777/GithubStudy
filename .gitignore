@@ -1,0 +1,5 @@
+# Ignore text files
+*.txt
+
+# Ingore macOS system files
+*.DS_Store
