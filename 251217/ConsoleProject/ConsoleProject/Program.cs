@@ -29,7 +29,7 @@ class Program
     private const char WALL = '#';              // 벽
     private const char EMPTY = ' ';             // 빈공간
 
-    private static char[,] map = new char[,] // 게임 필드(문자 기반 2차원 배열)
+    private static char[,] stageOnemap = new char[,] // 게임 필드(문자 기반 2차원 배열)
     {
         { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
         { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
@@ -41,6 +41,53 @@ class Program
         { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
         { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
         { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' }
+    };
+
+    private static char[,] stageTwomap = new char[,]
+    {
+        { '#', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ' },
+        { '#', ' ', ' ', ' ', '#', 'G', '#', ' ', ' ', ' ' },
+        { '#', ' ', 'B', ' ', '#', ' ', '#', '#', ' ', ' ' },
+        { '#', ' ', ' ', 'B', '#', ' ', 'G', '#', ' ', ' ' },
+        { '#', ' ', 'P', ' ', ' ', ' ', ' ', '#', ' ', ' ' },
+        { '#', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ' },
+        { '#', '#', ' ', ' ', '#', ' ', '#', '#', ' ', ' ' },
+        { ' ', '#', 'B', ' ', '#', ' ', '#', ' ', ' ', ' ' },
+        { ' ', '#', ' ', ' ', '#', 'G', '#', ' ', ' ', ' ' },
+        { ' ', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ' }
+    };
+
+    private static char[,] stageThreemap = new char[,]
+    {
+        { ' ', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', ' ' },
+        { '#', '#', '#', '#', '#', 'G', '#', ' ', ' ', ' ' },
+        { '#', ' ', ' ', ' ', '#', ' ', '#', '#', '#', ' ' },
+        { '#', ' ', 'B', ' ', '#', ' ', 'G', ' ', '#', ' ' },
+        { '#', ' ', 'P', 'B', '#', ' ', ' ', ' ', '#', ' ' },
+        { '#', ' ', ' ', ' ', 'B', ' ', ' ', ' ', '#', ' ' },
+        { '#', '#', ' ', ' ', '#', ' ', ' ', 'G', '#', ' ' },
+        { ' ', '#', 'B', ' ', '#', ' ', '#', '#', '#', ' ' },
+        { ' ', '#', ' ', ' ', '#', 'G', '#', ' ', ' ', ' ' },
+        { ' ', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ' }
+    };
+    
+    static char[,] map;        // 현재 플레이 중인 맵
+    static char[,] baseMap;   // 리셋용 베이스 맵
+
+    static int currentStage = 0;
+
+    static char[][,] stages =
+    {
+        stageOnemap,
+        stageTwomap,
+        stageThreemap
+    };
+
+    static Position[] startPositions =
+    {
+        new Position { X = 4, Y = 4 },
+        new Position { X = 2, Y = 4 },
+        new Position { X = 2, Y = 4 }
     };
     
     static Position _playerPos = new Position()
@@ -54,8 +101,11 @@ class Program
     static void Main(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
+        
         // 안내 멘트 출력
         PrintGuideText();
+        
+        LoadStage(0);
 
         while (true)
         {
@@ -67,7 +117,8 @@ class Program
             if (IsGameClear())
             {
                 PrintClearText();
-                break;
+                LoadNextStage();
+                continue;
             }
             
             // 사용자 입력
@@ -79,6 +130,12 @@ class Program
             {
                 Console.WriteLine("\n게임을 종료합니다");
                 break;
+            }
+
+            if (inputKey == ConsoleKey.R)
+            {
+                ResetStage();
+                continue;
             }
             
             // 로직 수행
@@ -128,7 +185,42 @@ class Program
         Console.WriteLine($"이동 거리 : {_moveCount}");
         Console.WriteLine();
     }
+    
+    static void SaveBaseMap()
+    {
+        baseMap = (char[,])map.Clone();
+    }
+    
+    static void LoadStage(int stageIndex)
+    {
+        map = (char[,])stages[stageIndex].Clone();
+        baseMap = (char[,])stages[stageIndex].Clone();
 
+        _playerPos = startPositions[stageIndex];
+        _moveCount = 0;
+    }
+    
+    static void LoadNextStage()
+    {
+        currentStage++;
+
+        if (currentStage >= stages.Length)
+        {
+            Console.Clear();
+            Console.WriteLine("모든 스테이지를 클리어했습니다!");
+            Environment.Exit(0);
+        }
+
+        LoadStage(currentStage);
+    }
+    
+    static void ResetStage()
+    {
+        map = (char[,])baseMap.Clone();
+        _playerPos = startPositions[currentStage];
+        _moveCount = 0;
+    }
+    
     static bool IsGameClear()
     {
         for (int y = 0; y < map.GetLength(0); y++)
@@ -167,7 +259,8 @@ class Program
                inputKey == ConsoleKey.A ||
                inputKey == ConsoleKey.S ||
                inputKey == ConsoleKey.D ||
-               inputKey == ConsoleKey.Q;
+               inputKey == ConsoleKey.Q ||
+               inputKey == ConsoleKey.R;
     }
     
     
@@ -339,13 +432,13 @@ class Program
             {
                 char tile = map[i, j];
                 
-                if (tile == WALL) Console.Write("■");
-                else if(tile == PLAYER) Console.Write("○");
-                else if(tile == PLAYER_ON_GOAL) Console.Write("＠");
-                else if(tile == BOMB) Console.Write("●");
-                else if(tile == BOMB_ON_GOAL) Console.Write("◎");
-                else if(tile == GOAL) Console.Write("☆");
-                else Console.Write(" ");
+                if (tile == WALL) Console.Write("🟦");
+                else if(tile == PLAYER) Console.Write("🤖");
+                else if(tile == PLAYER_ON_GOAL) Console.Write("✨");
+                else if(tile == BOMB) Console.Write("🟫");
+                else if(tile == BOMB_ON_GOAL) Console.Write("💎");
+                else if(tile == GOAL) Console.Write("🌟");
+                else Console.Write("  ");
             }
             Console.WriteLine();
         }
