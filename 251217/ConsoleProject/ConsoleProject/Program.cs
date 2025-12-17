@@ -173,7 +173,7 @@ class Program
     static bool IsOutOfArray(Position pos)
     {
         bool outX = pos.X < 0 || map.GetLength(1) <= pos.X;
-        bool outY = pos.Y < 0 || map.GetLength(1) <= pos.Y;
+        bool outY = pos.Y < 0 || map.GetLength(0) <= pos.Y;
         
         return outX || outY;
     }
