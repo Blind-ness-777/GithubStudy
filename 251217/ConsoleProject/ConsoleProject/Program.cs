@@ -78,20 +78,37 @@ class Program
                 break;
             }
             
-            // 로직 수행(이동, 폭탄 밀기)
+            // 로직 수행
             
-            // 다음 위치가 어디인지 판단하고
+            // 이동 가능한지 판단.
             Position nextPos = GetNextPosition(inputKey);
             
-            // 맵 밖이진 않은지?
             if (IsOutOfArray(nextPos)) continue;
             
-            // 벽이진 않은지?
             char targetTile = GetTile(nextPos);
             if (targetTile == WALL) continue;
             
-            // 이동 구현
+            // 이동 구현(이동, 폭탄 밀기)
             
+            // 플레이어 단순 이동 (Goal 위로 이동하는 것도 포함)
+            if (targetTile == EMPTY || targetTile == GOAL)
+            {
+                Move(_playerPos, nextPos);
+                _playerPos = nextPos;
+                _moveCount++;
+            }
+            // 폭탄을 밀면서 이동
+            
+            // 방량(Position)
+            // 폭탄이 밀릴 위치
+            
+            // 맵 밖으로 나가는지 확인
+            
+            // 밀 수 없는 상황인지? (앞에 벽이나 폭탄이 있는 경우)
+            
+            // 이동하고 
+            
+            // 플레이어도 폭탄의 위치로 이동시켜줘야 함.
         }
 
         Console.WriteLine("게임 끝");
@@ -147,7 +164,13 @@ class Program
                inputKey == ConsoleKey.D ||
                inputKey == ConsoleKey.Q;
     }
-
+    
+    
+    /// <summary>
+    /// 입력받은 키에 따라 다음 좌표정보를 반환하는 함수
+    /// </summary>
+    /// <param name="inputKey">입력 키</param>
+    /// <returns>입력 키에 따른 다음 좌표 구조체</returns>
     static Position GetNextPosition(ConsoleKey inputKey)
     {
         int newX = _playerPos.X;
@@ -164,12 +187,32 @@ class Program
             Y = newY
         };
     }
-
+    
+    /// <summary>
+    /// 입력받은 좌표의 타일을 반환하는 함수
+    /// </summary>
+    /// <param name="pos">입력 위치</param>
+    /// <returns>배열의 char 문자 반환</returns>
     static char GetTile(Position pos)
     {
         return map[pos.Y, pos.X];
     }
-
+    
+    /// <summary>
+    /// 입력받은 좌표의 타일을 바꾸는 함수
+    /// </summary>
+    /// <param name="pos">바꿀 위치</param>
+    /// <param name="tile">대상 타일</param>
+    static void SetTile(Position pos, char tile)
+    {
+        map[pos.Y, pos.X] = tile;
+    }
+    
+    /// <summary>
+    /// 입력받은 위치가 배열의 범위 바깥인지 판단하는 함수
+    /// </summary>
+    /// <param name="pos">입력 위치</param>
+    /// <returns>배열 인덱스 범위 밖이라면 true, 아니라면 false</returns>
     static bool IsOutOfArray(Position pos)
     {
         bool outX = pos.X < 0 || map.GetLength(1) <= pos.X;
@@ -177,14 +220,52 @@ class Program
         
         return outX || outY;
     }
+    
+    // 플레이어 이동으로 먼저 구현, 나중에 박스도 함수 사용할 수 있도록 할거임
+    static void Move(Position from, Position to)
+    {
+        // 출발지점을 기존 타일로 바꿔서 비우기
+        char originalTile = GetOriginTile(GetTile(from));
+        SetTile(from, originalTile);
+        // 다음 위치에 'P'를 넣어야 함.
+        char targetTile = GetTile(to);
+        char nextTile = GetConvertTile(PLAYER, targetTile); 
+        SetTile(to, nextTile);
+    }
 
+    static char GetConvertTile(char mover, char under)
+    {
+        if (under == GOAL)
+        {
+            return PLAYER_ON_GOAL;
+        }
+        else
+        {
+            return PLAYER;
+        }
+    }
+    
+    
+    static char GetOriginTile(char tile)
+    {
+        return tile switch
+        {
+            PLAYER => EMPTY,
+            PLAYER_ON_GOAL => GOAL,
+            _ => tile
+        };
+    }
+    
+    /// <summary>
+    /// 맵 출력 함수
+    /// </summary>
     static void PrintMap()
     {
         for (int i = 0; i < map.GetLength(0); i++)
         {
             for (int j = 0; j < map.GetLength(1); j++)
             {
-                Console.WriteLine(map[i, j]);
+                Console.Write(map[i, j]);
             }
             Console.WriteLine();
         }
