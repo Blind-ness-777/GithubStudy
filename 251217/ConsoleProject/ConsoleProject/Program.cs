@@ -186,11 +186,18 @@ class Program
         Console.WriteLine();
     }
     
+    /// <summary>
+    /// 현재 진행 중인 맵을 베이스로 삼는 함수
+    /// </summary>
     static void SaveBaseMap()
     {
         baseMap = (char[,])map.Clone();
     }
     
+    /// <summary>
+    /// 선택한 스테이지를 불러와 현재 맵과 리셋용 베이스 맵을 초기화하는 함수
+    /// </summary>
+    /// <param name="stageIndex">불러올 스테이지 인덱스</param>
     static void LoadStage(int stageIndex)
     {
         map = (char[,])stages[stageIndex].Clone();
@@ -200,6 +207,9 @@ class Program
         _moveCount = 0;
     }
     
+    /// <summary>
+    /// 다음 스테이지를 불러올 함수
+    /// </summary>
     static void LoadNextStage()
     {
         currentStage++;
@@ -214,6 +224,9 @@ class Program
         LoadStage(currentStage);
     }
     
+    /// <summary>
+    /// 현재 스테이지가 클리어 불가능할 때 리셋하는 함수
+    /// </summary>
     static void ResetStage()
     {
         map = (char[,])baseMap.Clone();
@@ -221,6 +234,10 @@ class Program
         _moveCount = 0;
     }
     
+    /// <summary>
+    /// 게임이 클리어 된 상황인지 판단하는 함수
+    /// </summary>
+    /// <returns>클리어 되었다면 true, 아니라면 false</returns>
     static bool IsGameClear()
     {
         for (int y = 0; y < map.GetLength(0); y++)
@@ -319,7 +336,12 @@ class Program
         return outX || outY;
     }
     
-    // 플레이어 이동으로 먼저 구현, 나중에 박스도 함수 사용할 수 있도록 할거임
+    /// <summary>
+    /// 게임 오브젝트의 위치를 이동시킨다
+    /// </summary>
+    /// <param name="from">이전 위치</param>
+    /// <param name="to">이동 후 위치</param>
+    /// <param name="target">이동시킬 대상</param>
     static void Move(Position from, Position to, char target)
     {
         // 출발지점을 기존 타일로 바꿔서 비우기
@@ -331,6 +353,12 @@ class Program
         SetTile(to, nextTile);
     }
     
+    /// <summary>
+    /// 이동할 위치에 표시될 타일을 구하는 함수
+    /// </summary>
+    /// <param name="mover">이동하는 주체</param>
+    /// <param name="under">이동할 곳의 타일</param>
+    /// <returns>이동 시 바뀌어야 할 타일</returns>
     static char GetConvertTile(char mover, char under)
     {
         if (mover == PLAYER)
@@ -377,7 +405,7 @@ class Program
     }
     
     /// <summary>
-    /// 박스를 미는 함수
+    /// 폭탄을 미는 함수
     /// </summary>
     /// <param name="bombPos">폭탄의 위치</param>
     /// <returns>폭탄을 성골적으로 밀었다면 true, 아니라면 false</returns>
