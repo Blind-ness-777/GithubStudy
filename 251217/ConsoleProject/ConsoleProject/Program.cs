@@ -93,22 +93,19 @@ class Program
             // 플레이어 단순 이동 (Goal 위로 이동하는 것도 포함)
             if (targetTile == EMPTY || targetTile == GOAL)
             {
-                Move(_playerPos, nextPos);
+                Move(_playerPos, nextPos, PLAYER);
                 _playerPos = nextPos;
                 _moveCount++;
             }
             // 폭탄을 밀면서 이동
-            
-            // 방량(Position)
-            // 폭탄이 밀릴 위치
-            
-            // 맵 밖으로 나가는지 확인
-            
-            // 밀 수 없는 상황인지? (앞에 벽이나 폭탄이 있는 경우)
-            
-            // 이동하고 
-            
-            // 플레이어도 폭탄의 위치로 이동시켜줘야 함.
+            else if (targetTile == BOMB || targetTile == BOMB_ON_GOAL)
+            {
+                if (TryPushBomb(nextPos))
+                {
+                    _playerPos = nextPos;
+                    _moveCount++;
+                }
+            }
         }
 
         Console.WriteLine("게임 끝");
@@ -227,27 +224,43 @@ class Program
     }
     
     // 플레이어 이동으로 먼저 구현, 나중에 박스도 함수 사용할 수 있도록 할거임
-    static void Move(Position from, Position to)
+    static void Move(Position from, Position to, char target)
     {
         // 출발지점을 기존 타일로 바꿔서 비우기
         char originalTile = GetOriginTile(GetTile(from));
         SetTile(from, originalTile);
         // 다음 위치에 'P'를 넣어야 함.
         char targetTile = GetTile(to);
-        char nextTile = GetConvertTile(PLAYER, targetTile); 
+        char nextTile = GetConvertTile(target, targetTile); 
         SetTile(to, nextTile);
     }
     
     static char GetConvertTile(char mover, char under)
     {
-        if (under == GOAL)
+        if (mover == PLAYER)
         {
-            return PLAYER_ON_GOAL;
+            if (under == GOAL)
+            {
+                return PLAYER_ON_GOAL;
+            }
+            else
+            {
+                return PLAYER;
+            }
         }
-        else
+        else if (mover == BOMB)
         {
-            return PLAYER;
+            if (under == GOAL)
+            {
+                return BOMB_ON_GOAL;
+            }
+            else
+            {
+                return BOMB;
+            }
         }
+        
+        return under;
     }
     
     /// <summary>
@@ -261,7 +274,54 @@ class Program
         {
             PLAYER => EMPTY,
             PLAYER_ON_GOAL => GOAL,
+            BOMB => EMPTY,
+            BOMB_ON_GOAL => GOAL,
             _ => tile
+        };
+    }
+    
+    /// <summary>
+    /// 박스를 미는 함수
+    /// </summary>
+    /// <param name="bombPos">폭탄의 위치</param>
+    /// <returns>폭탄을 성골적으로 밀었다면 true, 아니라면 false</returns>
+    static bool TryPushBomb(Position bombPos)
+    {
+        // 방향
+        Position direction = GetDirection(_playerPos, bombPos);
+        // 구해진 방향으로 한 칸 전진했을 때의 위치
+        Position nextPos = AddDirection(bombPos, direction);
+        
+        // 맵 밖으로 나가는지 확인
+        if (IsOutOfArray(nextPos)) return false;
+        // 밀릴 수 없는 경우
+        char nextTile = GetTile(nextPos);
+        if (!(nextTile == EMPTY || nextTile == GOAL))  return false;
+
+        // 폭탄 이동
+        Move(bombPos, nextPos, BOMB);
+        
+        // 플레이어를 폭탄이 있던 위치로 이동
+        Move(_playerPos, bombPos, PLAYER);
+        
+        return true;
+    }
+
+    static Position GetDirection(Position from, Position to)
+    {
+        return new Position()
+        {
+            X = to.X - from.X,
+            Y = to.Y - from.Y
+        };
+    }
+
+    static Position AddDirection(Position pos, Position direction)
+    {
+        return new Position()
+        {
+            X = pos.X + direction.X,
+            Y = pos.Y + direction.Y
         };
     }
     
