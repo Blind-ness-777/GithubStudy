@@ -98,6 +98,8 @@ class Program
     
     private static int _moveCount = 0;
     
+    static int _totalMoveCount = 0;
+    
     static void Main(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
@@ -156,6 +158,7 @@ class Program
                 Move(_playerPos, nextPos, PLAYER);
                 _playerPos = nextPos;
                 _moveCount++;
+                _totalMoveCount++;
             }
             // 폭탄을 밀면서 이동
             else if (targetTile == BOMB || targetTile == BOMB_ON_GOAL)
@@ -164,6 +167,7 @@ class Program
                 {
                     _playerPos = nextPos;
                     _moveCount++;
+                    _totalMoveCount++;
                 }
             }
         }
@@ -182,6 +186,8 @@ class Program
     static void PrintMoveCount()
     {
         Console.SetCursorPosition(0 , 4);
+        Console.Write(new string(' ', 30)); // 이전 출력 지우기
+        Console.SetCursorPosition(0, 4);
         Console.WriteLine($"이동 거리 : {_moveCount}");
         Console.WriteLine();
     }
@@ -258,7 +264,8 @@ class Program
     {
         Console.WriteLine();
         Console.WriteLine("축하합니다. 클리어 하셨습니다.");
-        Console.WriteLine($"총 이동 거리 : {_moveCount}");
+        Console.WriteLine($"현재 스테이지 이동 : {_moveCount}");
+        Console.WriteLine($"총 이동 거리 : {_totalMoveCount}");
         Console.WriteLine();
     }
     
