@@ -224,6 +224,7 @@ class Program
         {
             Console.Clear();
             Console.WriteLine("모든 스테이지를 클리어했습니다!");
+            Console.ReadLine();
             Environment.Exit(0);
         }
 
