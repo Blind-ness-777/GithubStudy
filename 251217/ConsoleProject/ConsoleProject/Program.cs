@@ -1,4 +1,6 @@
-﻿namespace ConsoleProject;
+﻿using System.Text;
+
+namespace ConsoleProject;
 
 // 소코반 게임 만들기(콘솔)
 // 절차지향 - 위에서 아래로 절차적으로 수행하도록 만드는 구조
@@ -51,6 +53,7 @@ class Program
     
     static void Main(string[] args)
     {
+        Console.OutputEncoding = Encoding.UTF8;
         // 안내 멘트 출력
         PrintGuideText();
 
@@ -334,7 +337,15 @@ class Program
         {
             for (int j = 0; j < map.GetLength(1); j++)
             {
-                Console.Write(map[i, j]);
+                char tile = map[i, j];
+                
+                if (tile == WALL) Console.Write("■");
+                else if(tile == PLAYER) Console.Write("○");
+                else if(tile == PLAYER_ON_GOAL) Console.Write("＠");
+                else if(tile == BOMB) Console.Write("●");
+                else if(tile == BOMB_ON_GOAL) Console.Write("◎");
+                else if(tile == GOAL) Console.Write("☆");
+                else Console.Write(" ");
             }
             Console.WriteLine();
         }
