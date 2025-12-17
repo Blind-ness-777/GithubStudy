@@ -152,7 +152,12 @@ class Program
         Console.WriteLine($"총 이동 거리 : {_moveCount}");
         Console.WriteLine();
     }
-
+    
+    /// <summary>
+    /// 사용자 입력을 받고, 게임에서 사용하는 키인지 판단
+    /// </summary>
+    /// <param name="inputKey">입력된 키를 보관할 변수</param>
+    /// <returns>게임에서 사용하는 키라면 true, 아니라면 false</returns>
     static bool TryGetInput(out ConsoleKey inputKey)
     {
         ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -232,7 +237,7 @@ class Program
         char nextTile = GetConvertTile(PLAYER, targetTile); 
         SetTile(to, nextTile);
     }
-
+    
     static char GetConvertTile(char mover, char under)
     {
         if (under == GOAL)
@@ -245,7 +250,11 @@ class Program
         }
     }
     
-    
+    /// <summary>
+    /// 겹쳐져 있던 원본 타일을 반환하는 함수
+    /// </summary>
+    /// <param name="tile">변환할 타일</param>
+    /// <returns>변환된 타일</returns>
     static char GetOriginTile(char tile)
     {
         return tile switch
