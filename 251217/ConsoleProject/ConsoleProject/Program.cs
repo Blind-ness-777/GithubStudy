@@ -11,10 +11,11 @@
             
 // 소코반 구현 구조
     // 1. 초기 세팅
-    // 2. 사용자 입력
-    // 3. 로직 수행(이동, 폭탄 밀기)
-    // 4. 화면에 출력
-    // 5. 2~4 반복
+    // 2.
+    // 3. 사용자 입력
+    // 4. 로직 수행(이동, 폭탄 밀기)
+    // 5. 화면에 출력
+    // 6. 2~4 반복
 
 class Program
 {
@@ -55,7 +56,13 @@ class Program
 
         while (true)
         {
-            // 게임 로직
+            // 출력
+            PrintMoveCount();
+            PrintMap();
+            
+            // 사용자 입력
+            // 로직 수행(이동, 폭탄 밀기)
+
         }
     }
 
@@ -64,6 +71,13 @@ class Program
         Console.Clear();
         Console.WriteLine("W : 위로 / S : 아래로 / A : 왼쪽 / D : 오른쪽 / Q : 종료");
         Console.WriteLine("모든 폭탄을 목표지점으로 옮기세요");
+        Console.WriteLine();
+    }
+
+    static void PrintMoveCount()
+    {
+        Console.SetCursorPosition(0 , 4);
+        Console.WriteLine($"이동 거리 : {_moveCount}");
         Console.WriteLine();
     }
 
