@@ -59,14 +59,27 @@ class Program
         { '#', '#', '#', '#', '#', ' ', '#', '#', '#', '#' },
         { '#', 'P', ' ', ' ', '#', ' ', '#', 'G', 'G', '#' },
         { '#', 'B', ' ', 'B', '#', ' ', '#', ' ', ' ', '#' },
-        { '#', ' ', ' ', ' ', '#', ' ', '#', ' ', ' ', '#' },
-        { '#', 'B', ' ', 'B', '#', '#', '#', ' ', 'G', '#' },
+        { '#', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', '#' },
+        { '#', 'B', ' ', 'B', '#', ' ', ' ', ' ', 'G', '#' },
         { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
         { '#', '#', '#', '#', '#', ' ', '#', ' ', '#', '#' },
         { ' ', ' ', ' ', ' ', '#', ' ', '#', ' ', ' ', '#' },
         { ' ', ' ', ' ', ' ', '#', 'G', '#', ' ', 'G', '#' },
         { ' ', ' ', ' ', ' ', '#', '#', '#', '#', '#', '#' }
     };
+    
+    static GameState _gameState = GameState.Menu;
+    
+    static int _menuIndex = 0;
+    
+    static string[] _menus = { "START", "EXIT" };
+    
+    enum GameState
+    {
+        Menu,
+        Playing,
+        Exit
+    }
     
     static char[,] map;
     static char[,] baseMap;
@@ -106,60 +119,20 @@ class Program
 
         PrintGuideText();
         LoadStage(0);
-
-        while (true)
+        
+        while (_gameState != GameState.Exit)
         {
-            PrintMoveCount();
-            PrintMap();
-
-            if (IsGameClear())
+            switch (_gameState)
             {
-                PrintClearText();
-                LoadNextStage();
-                continue;
-            }
+                case GameState.Menu:
+                    ShowMainMenu();
+                    break;
 
-            ConsoleKey inputKey;
-            
-            if (!TryGetInput(out inputKey)) continue;
-
-            if (inputKey == ConsoleKey.Q)
-            {
-                Console.WriteLine("\n게임을 종료합니다.");
-                break;
-            }
-
-            if (inputKey == ConsoleKey.R)
-            {
-                ResetStage();
-                continue;
-            }
-            
-            Position nextPos = GetNextPosition(inputKey);
-
-            if (IsOutOfArray(nextPos)) continue;
-            
-            char targetTile = GetTile(nextPos);
-            if (targetTile == WALL) continue;
-
-            if (targetTile == EMPTY || targetTile == GOAL)
-            {
-                Move(_playerPos, nextPos, PLAYER);
-                _playerPos = nextPos;
-                _moveCount++;
-                _totalMoveCount++;
-            }
-            else if (targetTile == BOMB || targetTile == BOMB_ON_GOAL)
-            {
-                if (TryPushBomb(nextPos))
-                {
-                    _playerPos = nextPos;
-                    _moveCount++;
-                    _totalMoveCount++;
-                }
+                case GameState.Playing:
+                    RunGame();
+                    break;
             }
         }
-
         Console.WriteLine("게임 끝");
     }
     
@@ -389,6 +362,110 @@ class Program
                 else Console.Write("  ");
             }
             Console.WriteLine();
+        }
+    }
+    
+    static void PrintMenu()
+    {
+        for (int i = 0; i < _menus.Length; i++)
+        {
+            if (i == _menuIndex)
+                Console.WriteLine($"> {_menus[i]}");
+            else
+                Console.WriteLine($"  {_menus[i]}");
+        }
+    }
+    
+    static void PrintLogo()
+    {
+        Console.Clear();
+        Console.WriteLine("███████╗ ██████╗ ██╗  ██╗ ██████╗ ██████╗  █████╗ ███╗   ██╗");
+        Console.WriteLine("██╔════╝██╔═══██╗██║ ██╔╝██╔═══██╗██╔══██╗██╔══██╗████╗  ██║");
+        Console.WriteLine("███████╗██║   ██║█████╔╝ ██║   ██║██████╔╝███████║██╔██╗ ██║");
+        Console.WriteLine("╚════██║██║   ██║██╔═██╗ ██║   ██║██╔══██╗██╔══██║██║╚██╗██║");
+        Console.WriteLine("███████║╚██████╔╝██║  ██╗╚██████╔╝██║  ██║██║  ██║██║ ╚████║");
+        Console.WriteLine("╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝");
+        Console.WriteLine();
+    }
+    
+    static void ShowMainMenu()
+    {
+        PrintLogo();
+        PrintMenu();
+
+        ConsoleKey key = Console.ReadKey(true).Key;
+
+        if (key == ConsoleKey.W)
+            _menuIndex = (_menuIndex - 1 + _menus.Length) % _menus.Length;
+        else if (key == ConsoleKey.S)
+            _menuIndex = (_menuIndex + 1) % _menus.Length;
+        else if (key == ConsoleKey.Enter)
+        {
+            if (_menuIndex == 0) // START
+            {
+                _gameState = GameState.Playing;
+                LoadStage(0);
+            }
+            else // EXIT
+            {
+                _gameState = GameState.Exit;
+            }
+        }
+    }
+    
+    static void RunGame()
+    {
+        while (true)
+        {
+            PrintMoveCount();
+            PrintMap();
+
+            if (IsGameClear())
+            {
+                PrintClearText();
+                LoadNextStage();
+                return;
+            }
+
+            ConsoleKey inputKey;
+            
+            if (!TryGetInput(out inputKey)) continue;
+
+            if (inputKey == ConsoleKey.Q)
+            {
+                Console.WriteLine("\n게임을 종료합니다.");
+                return;
+            }
+
+            if (inputKey == ConsoleKey.R)
+            {
+                ResetStage();
+                continue;
+            }
+            
+            Position nextPos = GetNextPosition(inputKey);
+
+            if (IsOutOfArray(nextPos)) continue;
+            
+            char targetTile = GetTile(nextPos);
+            if (targetTile == WALL) continue;
+
+            if (targetTile == EMPTY || targetTile == GOAL)
+            {
+                Move(_playerPos, nextPos, PLAYER);
+                _playerPos = nextPos;
+                _moveCount++;
+                _totalMoveCount++;
+            }
+            else if (targetTile == BOMB || targetTile == BOMB_ON_GOAL)
+            {
+                if (TryPushBomb(nextPos))
+                {
+                    _playerPos = nextPos;
+                    _moveCount++;
+                    _totalMoveCount++;
+                }
+            }
         }
     }
 }
