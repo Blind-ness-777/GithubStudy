@@ -117,9 +117,6 @@ class Program
     {
         Console.OutputEncoding = Encoding.UTF8;
 
-        PrintGuideText();
-        LoadStage(0);
-        
         while (_gameState != GameState.Exit)
         {
             switch (_gameState)
@@ -392,7 +389,7 @@ class Program
     {
         PrintLogo();
         PrintMenu();
-
+        
         ConsoleKey key = Console.ReadKey(true).Key;
 
         if (key == ConsoleKey.W)
@@ -404,6 +401,8 @@ class Program
             if (_menuIndex == 0) // START
             {
                 _gameState = GameState.Playing;
+                Console.Clear();
+                PrintGuideText();
                 LoadStage(0);
             }
             else // EXIT
