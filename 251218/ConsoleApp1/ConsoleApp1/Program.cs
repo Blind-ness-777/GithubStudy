@@ -168,10 +168,7 @@ class Program
 
         if (currentStage >= stages.Length)
         {
-            Console.Clear();
-            Console.WriteLine("모든 스테이지를 클리어했습니다!");
-            Console.ReadLine();
-            Environment.Exit(0);
+            PrintFinalClear();
         }
 
         LoadStage(currentStage);
@@ -193,6 +190,19 @@ class Program
         return true;
     }
     
+    static void PrintFinalClear()
+    {
+        Console.Clear();
+        PrintLogo();
+        Console.WriteLine();
+        Console.WriteLine("모든 스테이지를 클리어했습니다!");
+        Console.WriteLine("축하합니다!");
+        Console.WriteLine();
+        Console.WriteLine("게임을 종료하려면 아무 키나 누르세요...");
+        Console.ReadKey(true);
+        Environment.Exit(0);
+    }
+    
     static void PrintMoveCount()
     {
         Console.SetCursorPosition(0 , 4);
@@ -208,6 +218,8 @@ class Program
         Console.WriteLine("축하합니다. 클리어 하셨습니다.");
         Console.WriteLine($"현재 스테이지 이동 : {_moveCount}");
         Console.WriteLine($"총 이동 거리 : {_totalMoveCount}");
+        Console.WriteLine();
+        Console.WriteLine("계속하려면 아무 키나 누르세요...");
         Console.WriteLine();
     }
     
@@ -421,8 +433,20 @@ class Program
 
             if (IsGameClear())
             {
+                Console.SetCursorPosition(0, map.GetLength(0) + 4);
                 PrintClearText();
+                
+                Console.ReadKey(true);
+                
+                Console.Clear();
+                
                 LoadNextStage();
+                _moveCount = 0;
+                
+                PrintGuideText();
+                PrintMoveCount();
+                PrintMap();
+                
                 return;
             }
 
@@ -433,7 +457,8 @@ class Program
             if (inputKey == ConsoleKey.Q)
             {
                 Console.WriteLine("\n게임을 종료합니다.");
-                return;
+                _gameState = GameState.Exit;
+                break;
             }
 
             if (inputKey == ConsoleKey.R)
