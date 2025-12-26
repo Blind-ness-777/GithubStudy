@@ -2,8 +2,28 @@
 
 class Program
 {
-    static void Main(string[] args)
+    static int Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        Console.Clear();
+        
+        int answer = 0;
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        if (n % 2 == 0)
+        {
+            for (int i = n; i > 0; i -= 2)
+            {
+                answer += i * i;
+            }
+        }
+        else
+        {
+            for (int i = n; i > 0; i -= 2)
+            {
+                answer += i;
+            }
+        }
+        
+        return answer;
     }
 }
