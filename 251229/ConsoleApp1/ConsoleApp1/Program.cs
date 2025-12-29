@@ -9,68 +9,62 @@ class Program
     static void Main(string[] args)
     {
         Console.Clear();
-
-        VendingMachine machine = new VendingMachine();
-
-        int value = 0;
-
-        while (true)
-        {
-            if (!int.TryParse(Console.ReadLine(), out value))
-            {
-                Console.WriteLine("숫자를 입력해주세요.");
-                continue;
-            }
-            
-            if (value <= 0)
-            {
-                Console.WriteLine("1 이상의 숫자를 입력해주세요.");
-                continue;
-            }
-
-            break;
-        }
-        
-        for (int i = 0; i < value; i++)
-        {
-            machine.AddMilk(new Milk());
-        }
     }
 }
 
-public class Milk
+public enum Shape
 {
-    public int ExpirationDate { get; private set; }
+    Spade,
+    Heart,
+    Clover,
+    Diamond
+};
+
+public class Card
+{
+    public Shape CardShape { get; private set; }
+    public int Number { get; private set; }
     
-    public Milk()
+    public Card(Shape shape, int value)
     {
-        ExpirationDate = 7;
+        CardShape = shape;
+        Number = value;
     }
 }
 
-public class VendingMachine
+public class CardDeck
 {
-    Queue<Milk> milkQueue = new Queue<Milk>();
+    private Stack<Card> unusedCards = new Stack<Card>();
+    private Stack<Card> usedCards = new Stack<Card>();
 
-    public void AddMilk(Milk milk)
+    public CardDeck()
     {
-        milkQueue.Enqueue(milk);
-        Console.WriteLine("우유가 보충되었습니다.");
-        Console.WriteLine($"남은 우유 : {milkQueue.Count}");
+        Shape[] shapes = new Shape[]
+        {
+            Shape.Spade,
+            Shape.Heart,
+            Shape.Clover,
+            Shape.Diamond
+        };
+        
+        foreach (Shape shape in shapes)
+        {
+            for (int number = 1; number <= 13; number++)
+            {
+                unusedCards.Push(new Card(shape, number));
+            }
+        }
     }
 
-    public void RemoveMilk()
+    public Card ShowTopCard()
     {
-        if (milkQueue.Count <= 0)
-        {
-            Console.WriteLine("자판기에 우유가 없습니다.");
-            return;
-        }
-        
-        Milk milk = milkQueue.Dequeue();
-        
-        Console.WriteLine($"꺼낸 우유의 유통기한 : {milk.ExpirationDate}");
-        
-        Console.WriteLine($"자판기에 우유가 {milkQueue.Count}개 남아 있습니다.");
+        return unusedCards.Peek();
+    }
+
+    public Card DrawCard()
+    {
+        Card card = unusedCards.Pop();
+        usedCards.Push(card);
+        return card;
     }
 }
