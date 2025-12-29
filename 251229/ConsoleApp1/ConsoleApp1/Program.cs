@@ -23,12 +23,7 @@ class Program
     }
 }
 
-public class Monster
+public class Command
 {
-    public string Name { get; private set; }
-
-    public Monster(string name)
-    {
-        Name = name;
-    }
+    public int a;
 }
