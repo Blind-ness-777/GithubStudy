@@ -8,42 +8,46 @@ class Program
     static void Main(string[] args)
     {
         Console.Clear();
-        
-        List<Monster> list = new List<Monster>();
+    
+        LinkedList<int> list = new LinkedList<int>();
+    
+        LinkedListNode<int> node = list.AddFirst(1);   // [1]
+        list.AddFirst(2);   // [2][1]
+        list.AddFirst(3);   // [3][2][1]
+        list.AddLast(4);    // [3][2][1][4]
+    
+        list.AddBefore(node, 5);
+        // [3][2][5][1][4]
+    
+        list.AddAfter(node, 6);
+        // [3][2][5][1][6][4]
+    
+        list.Remove(5);
+        // 실제 데이터가 아닌 것을 타겟으로 할 경우 아무 일도 일어나지 않는다.
+        // [3][2][1][6][4]
+        list.Remove(node);
+        // [3][2][6][4]
+    
+        list.Remove(list.First);
+        // [2][6][4]
+        list.RemoveLast();
+        // [2][6]
 
-        list.Add(new Monster("오크"));
-        PrintList(list);
+        Console.WriteLine($"list Count : {list.Count}");
 
-        Monster slime1 = new("슬라임");
-        list.Add(slime1);
-        PrintList(list);
-        
-        list.Add(new Monster("해골"));
-        PrintList(list);
-        
-        list.Insert(1, new Monster("아이루"));
-        PrintList(list);
-
-        Console.WriteLine(list[2].Name);
-
-        Monster slime2 = new("슬라임");
-        if (list.Contains(slime1))
+        if (list.Contains(2))
         {
-            Console.WriteLine("슬라임 찾았음");
+            Console.WriteLine("2 찾음");
         }
-
-        list.Remove(slime1);
-        PrintList(list);
-        
-        list.RemoveAt(0);
+    
         PrintList(list);
     }
 
-    static void PrintList(List<Monster> list)
+    static void PrintList(LinkedList<int> list)
     {
-        foreach (Monster l in list)
+        foreach (int l in list)
         {
-            Console.Write($"[{l.Name}]");
+            Console.Write($"[{l}]");
         }
 
         Console.WriteLine();
