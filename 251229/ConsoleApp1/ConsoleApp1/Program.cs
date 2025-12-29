@@ -9,38 +9,30 @@ class Program
     {
         Console.Clear();
     
-        LinkedList<int> list = new LinkedList<int>();
-    
-        LinkedListNode<int> node = list.AddFirst(1);   // [1]
-        list.AddFirst(2);   // [2][1]
-        list.AddFirst(3);   // [3][2][1]
-        list.AddLast(4);    // [3][2][1][4]
-    
-        list.AddBefore(node, 5);
-        // [3][2][5][1][4]
-    
-        list.AddAfter(node, 6);
-        // [3][2][5][1][6][4]
-    
-        list.Remove(5);
-        // 실제 데이터가 아닌 것을 타겟으로 할 경우 아무 일도 일어나지 않는다.
-        // [3][2][1][6][4]
-        list.Remove(node);
-        // [3][2][6][4]
-    
-        list.Remove(list.First);
-        // [2][6][4]
-        list.RemoveLast();
-        // [2][6]
+        Stack<int> stack = new();
+        
+// 데이터 추가
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+        stack.Push(4);
+        stack.Push(5);
 
-        Console.WriteLine($"list Count : {list.Count}");
+// 맨 위에 있는 데이터 확인"만"
+        Console.WriteLine(stack.Peek());
 
-        if (list.Contains(2))
+// 맨 위에 있는 데이터를 반환하고 스택에서 삭제
+        Console.WriteLine(stack.Pop());
+        Console.WriteLine();
+
+        foreach (int i in stack)
         {
-            Console.WriteLine("2 찾음");
+            Console.WriteLine(i);
         }
-    
-        PrintList(list);
+
+        stack.Contains(3);
+
+        Console.WriteLine(stack.Count);
     }
 
     static void PrintList(LinkedList<int> list)
