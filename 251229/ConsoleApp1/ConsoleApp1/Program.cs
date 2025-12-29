@@ -8,49 +8,33 @@ class Program
     static void Main(string[] args)
     {
         Console.Clear();
-    
-        Stack<int> stack = new();
+
+        Queue<Unit> barracks = new();
         
-// 데이터 추가
-        stack.Push(1);
-        stack.Push(2);
-        stack.Push(3);
-        stack.Push(4);
-        stack.Push(5);
+        barracks.Enqueue(new Unit("Marine"));
+        barracks.Enqueue(new Unit("Ghost"));
+        barracks.Enqueue(new Unit("Firebat"));
+        barracks.Enqueue(new Unit("Medic"));
+        barracks.Enqueue(new Unit("Marine"));
 
-// 맨 위에 있는 데이터 확인"만"
-        Console.WriteLine(stack.Peek());
+        Console.WriteLine(barracks.Count);
+        
+        Unit unit = barracks.Dequeue();
 
-// 맨 위에 있는 데이터를 반환하고 스택에서 삭제
-        Console.WriteLine(stack.Pop());
-        Console.WriteLine();
+        Console.WriteLine("--------------------");
 
-        foreach (int i in stack)
+        foreach (Unit u in barracks)
         {
-            Console.WriteLine(i);
+            Console.WriteLine(u.Name);
         }
-
-        stack.Contains(3);
-
-        Console.WriteLine(stack.Count);
-    }
-
-    static void PrintList(LinkedList<int> list)
-    {
-        foreach (int l in list)
-        {
-            Console.Write($"[{l}]");
-        }
-
-        Console.WriteLine();
     }
 }
 
-public class Monster
+public class Unit
 {
     public string Name { get; private set; }
 
-    public Monster(string name)
+    public Unit(string name)
     {
         Name = name;
     }
