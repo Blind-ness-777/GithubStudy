@@ -51,11 +51,11 @@ public class MatrixGraph<T>
         _matrix[from, to] = value;
     }
     
-    private void AddEdgeCycle(int a, int b, int value)
+    public void AddEdgeCycle(int a, int b, int value)
     {
-        if (!value <= 0)
-        {
-            
-        }
+        if (value <= 0) return;
+        
+        _matrix[a, b] = value;
+        _matrix[b, a] = value;
     }
 }
