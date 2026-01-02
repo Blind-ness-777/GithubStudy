@@ -16,6 +16,12 @@ class Program
 
         BinarySearch(list, findValue);
     }
+    
+    // 숫자를 입력받아 5를 출력하는 기능을 제작하시오
+    public int OnlyFive(int a)
+    {
+        return 5;
+    }
 
     static void BinarySearch(List<int> list, int target)
     {
