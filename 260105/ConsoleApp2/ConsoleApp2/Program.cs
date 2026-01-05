@@ -6,93 +6,140 @@ class Program
     {
         Console.Clear();
 
-        List<int> list = new List<int>();
+        MatrixGraph graph = new MatrixGraph(15);
+        
+        graph.AddEdge(0, 1);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(1, 4);
+        graph.AddEdge(3, 7);
+        graph.AddEdge(3, 8);
+        graph.AddEdge(4, 9);
+        graph.AddEdge(4, 10);
+        graph.AddEdge(2, 5);
+        graph.AddEdge(2, 6);
+        graph.AddEdge(5, 11);
+        graph.AddEdge(5, 12);
+        graph.AddEdge(6, 13);
+        graph.AddEdge(6, 14);
+        
+        // List<int> BFSPath = graph.BFS(0);
+        List<int> stackDFSPath = graph.DFS(0);
 
-        list.Add(5);
-        list.Add(2);
-        list.Add(8);
-        list.Add(3);
-        list.Add(1);
-        list.Add(6);
-        list.Add(4);
-        list.Add(7);
-
-        PrintList(list);
-        Console.WriteLine();
-
-        MergeSort(list, 0, list.Count - 1);
-
-        PrintList(list);
+        // List<int> DFSPath = graph.DFS(0);
+        
+        PrintAll(stackDFSPath);
     }
 
-    static void PrintList(List<int> list)
+    static void PrintAll(List<int> list)
     {
         foreach (int i in list)
         {
             Console.Write($"[{i}]");
         }
     }
+}
 
-    static void MergeSort(List<int> list, int left, int right)
+
+
+public class MatrixGraph
+{
+    private readonly bool[,] _matrix;
+
+    private int _vertextCount;
+
+    public MatrixGraph(int vertextCount)
     {
-        if (left >= right) return;
-        int center = (left + right) / 2;
-
-        MergeSort(list, left, center);
-        MergeSort(list, center + 1, right);
-
-        Merge(list, left, center, right);
+        _vertextCount = vertextCount;
+        _matrix = new bool[vertextCount, vertextCount];
     }
 
-    static void Merge(List<int> list, int left, int center, int right)
+    public void AddEdge(int from, int to)
     {
-        // 임시 배열의 크기 = 현재 병합하는 범위의 길이
-        int[] temp = new int[right - left + 1];
+        _matrix[from, to] = true;
+        _matrix[to, from] = true;
+    }
 
-        int leftIndex = left;
-        int rightIndex = center + 1;
-        int tempIndex = 0; // temp에서 사용할 인덱스
+    public bool HasEdge(int from, int to) => _matrix[from, to];
 
-        // 두 범위에서 남아있는 동안 계속 비교하고, 작은 값을 temp로 이동
-        while (leftIndex <= center && rightIndex <= right)
+    public List<int> BFS(int start)
+    {
+        List<int> path = new List<int>();
+        Queue<int> queue = new Queue<int>();
+        
+        bool[] visited = new bool[_vertextCount];
+        visited[start] = true;
+        
+        queue.Enqueue(start);
+
+        while (queue.Count > 0)
         {
-            // 불안정 정렬 [2a][1][2b][3] => [1][2b][2a][3]
-            // 안정 정렬 [2a][1][2b][3] => [1][2a][2b][3]
+            int current = queue.Dequeue();
+            path.Add(current);
 
-            if (list[leftIndex] <= list[rightIndex]) // 왼쪽을 우선시 함
+            for (int to = 0; to < _vertextCount; to++)
             {
-                temp[tempIndex] = list[leftIndex];
-                leftIndex++;
+                if (_matrix[current, to] && !visited[to])
+                {
+                    visited[to] = true;
+                    queue.Enqueue(to);
+                }
             }
-            else
+        }
+        
+        return path;
+    }
+
+    public List<int> DFS(int start)
+    {
+        List<int> path = new List<int>();
+        bool[] visited = new bool[_vertextCount];
+        
+        InternalDFS(start, visited, path);
+        
+        return path;
+    }
+
+    public void InternalDFS(int current, bool[] visited, List<int> path)
+    {
+        visited[current] = true;
+        path.Add(current);
+
+        for (int to = 0; to < _vertextCount; to++)
+        {
+            if (_matrix[current, to] && !visited[to])
             {
-                temp[tempIndex] = list[rightIndex];
-                rightIndex++;
+                InternalDFS(to, visited, path);
             }
-
-            tempIndex++;
-        }
-
-        // 왼쪽 범위에 남은 값이 있다면? => 그대로 temp로.
-        while (leftIndex <= center)
-        {
-            temp[tempIndex] = list[leftIndex];
-            leftIndex++;
-            tempIndex++;
-        }
-
-        // 오른쪽 범위에 남은 값이 있다면 => 그대로 temp로.
-        while (rightIndex <= right)
-        {
-            temp[tempIndex] = list[rightIndex];
-            rightIndex++;
-            tempIndex++;
-        }
-
-        // temp배열의 원소만 기존의 List에 덮어쓰기
-        for (int t = 0; t < temp.Length; t++)
-        {
-            list[left + t] = temp[t];
         }
     }
+    
+    public List<int> StackDFS(int start)
+    {
+        List<int> path = new List<int>();
+        Stack<int> stack = new Stack<int>();
+        
+        bool[] visited = new bool[_vertextCount];
+        visited[start] = true;
+        
+        stack.Push(start);
+
+        while (stack.Count > 0)
+        {
+            int current = stack.Pop();
+            path.Add(current);
+
+            for (int to = 0; to < _vertextCount; to++)
+            {
+                if (_matrix[current, to] && !visited[to])
+                {
+                    visited[to] = true;
+                    stack.Push(to);
+                }
+            }
+        }
+        
+        return path;
+    }
+
 }
