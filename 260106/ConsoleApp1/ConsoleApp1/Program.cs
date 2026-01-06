@@ -1,9 +1,33 @@
-﻿namespace ConsoleApp1;
+﻿using System;
 
-class Program
-{
-    static void Main(string[] args)
+public class Solution {
+    public bool solution(string s)
     {
-        Console.WriteLine("Hello, World!");
+        bool answer = true;
+        
+        int balance = 0;
+
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (s[i] == '(')
+            {
+                balance++;
+            }
+            else if (s[i] == ')')
+            {
+                balance--;
+            }
+
+            if (balance < 0)
+            {
+                answer = false;
+            }
+        }
+        if (balance != 0)
+        {
+            answer = true;
+        }
+        
+        return answer;
     }
 }
