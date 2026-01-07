@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|e:\\github\\githubstudy\\260107\\consoleapp1\\consoleapp1\\menulist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\menulist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|e:\\github\\githubstudy\\260107\\consoleapp1\\consoleapp1\\titlescene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\titlescene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|e:\\github\\githubstudy\\260107\\consoleapp1\\consoleapp1\\textextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\textextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|e:\\github\\githubstudy\\260107\\consoleapp1\\consoleapp1\\scenemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\scenemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|e:\\github\\githubstudy\\260107\\consoleapp1\\consoleapp1\\storyscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\storyscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|e:\\github\\githubstudy\\260107\\consoleapp1\\consoleapp1\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|e:\\github\\githubstudy\\260107\\consoleapp1\\consoleapp1\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|e:\\github\\githubstudy\\260107\\consoleapp1\\consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A90CC14D-058E-4D9F-BEBA-E0C5169D960D}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MenuList.cs",
+              "DocumentMoniker": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\MenuList.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\MenuList.cs",
+              "ToolTip": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\MenuList.cs",
+              "RelativeToolTip": "ConsoleApp1\\MenuList.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAzwDsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T05:29:18.274Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\Program.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Program.cs",
+              "ToolTip": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\Program.cs",
+              "RelativeToolTip": "ConsoleApp1\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T05:25:12.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\GameManager.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\GameManager.cs",
+              "ToolTip": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\GameManager.cs",
+              "RelativeToolTip": "ConsoleApp1\\GameManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T05:25:15.945Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InputManager.cs",
+              "DocumentMoniker": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\InputManager.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\InputManager.cs",
+              "ToolTip": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\InputManager.cs",
+              "RelativeToolTip": "ConsoleApp1\\InputManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T05:25:20.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SceneManager.cs",
+              "DocumentMoniker": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\SceneManager.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\SceneManager.cs",
+              "ToolTip": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\SceneManager.cs",
+              "RelativeToolTip": "ConsoleApp1\\SceneManager.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T05:25:24.315Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StoryScene.cs",
+              "DocumentMoniker": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\StoryScene.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\StoryScene.cs",
+              "ToolTip": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\StoryScene.cs",
+              "RelativeToolTip": "ConsoleApp1\\StoryScene.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T05:25:31.061Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TitleScene.cs",
+              "DocumentMoniker": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\TitleScene.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\TitleScene.cs",
+              "ToolTip": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\TitleScene.cs",
+              "RelativeToolTip": "ConsoleApp1\\TitleScene.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T05:20:41.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TextExtensions.cs",
+              "DocumentMoniker": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\TextExtensions.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\TextExtensions.cs",
+              "ToolTip": "E:\\Github\\GithubStudy\\260107\\ConsoleApp1\\ConsoleApp1\\TextExtensions.cs",
+              "RelativeToolTip": "ConsoleApp1\\TextExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T05:16:59.669Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
