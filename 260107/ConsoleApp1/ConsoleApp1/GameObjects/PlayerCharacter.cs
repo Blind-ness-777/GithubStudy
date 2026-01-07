@@ -1,5 +1,9 @@
 ﻿public class PlayerCharacter : GameObject
 {
+    // IInteractable
+    // Item : GameObject
+    // Potion : Item, IInteractable
+    
     public PlayerCharacter() => Init();
     public Tile[,] Field { get; set; }
     
