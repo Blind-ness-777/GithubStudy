@@ -12,6 +12,7 @@
         ConsoleKey.I,
         ConsoleKey.L,
         ConsoleKey.Z,
+        ConsoleKey.B,
     };
 
     public static bool GetKey(ConsoleKey input)

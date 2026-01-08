@@ -4,8 +4,11 @@
     // Item : GameObject
     // Potion : Item, IInteractable
     
-    public PlayerCharacter() => Init();
     public Tile[,] Field { get; set; }
+    private Inventory _inventory = new Inventory();
+    public bool IsActiveConrtol { get; private set; }
+    
+    public PlayerCharacter() => Init();
     
     public void Init()
     {
@@ -15,24 +18,58 @@
     public void Update()
     {
         Vector direction = new Vector();
-        
+
         if (InputManager.GetKey(ConsoleKey.UpArrow))
-            direction = Vector.Up;
+        {
+            Move(Vector.Up);
+            
+            IsActiveConrtol = !IsActiveConrtol;
+        }
 
         if (InputManager.GetKey(ConsoleKey.DownArrow))
-            direction = Vector.Down;
-        
+        {
+            Move(Vector.Down);
+            
+            IsActiveConrtol = !IsActiveConrtol;
+        }
+
         if (InputManager.GetKey(ConsoleKey.LeftArrow))
-            direction = Vector.Left;
-        
+        {
+            Move(Vector.Left);
+            
+            IsActiveConrtol = !IsActiveConrtol;
+            _inventory.SelectLeft();
+        }
+
         if (InputManager.GetKey(ConsoleKey.RightArrow))
-            direction = Vector.Right;
-        
-        if (Field != null) Move(direction);
+        {
+            Move(Vector.Right);
+            
+            IsActiveConrtol = !IsActiveConrtol;
+            _inventory.SelectRight();
+        }
+
+        if (InputManager.GetKey(ConsoleKey.B))
+        {
+            HandleControl();
+        }
+
+        if (InputManager.GetKey(ConsoleKey.Enter))
+        {
+            _inventory.Select();
+        }
+    }
+
+    public void HandleControl()
+    {
+        _inventory.IsActive = !_inventory.IsActive;
+        IsActiveConrtol = !IsActiveConrtol;
     }
     
     private void Move(Vector direction)
     {
+        if (Field == null || !IsActiveConrtol) return;
+        
         Vector current = Position;
         Vector nextPos = Position + direction;  
         
@@ -45,5 +82,15 @@
         Position = nextPos;
         
         Debug.LogWarning($"플레이어 이동 : ({current.X}, {current.Y}) -> ({nextPos.X}, {nextPos.Y})");
+    }
+
+    public void Render()
+    {
+        _inventory.Render();
+    }
+
+    public void AddItem(Item item)
+    {
+        _inventory.TryAdd(item);
     }
 }

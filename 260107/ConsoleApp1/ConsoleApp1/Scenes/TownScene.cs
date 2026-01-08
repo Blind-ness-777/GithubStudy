@@ -34,6 +34,7 @@
     public override void Render()
     {
         PrintField();
+        _player.Render();
     }
 
     public override void Exit()

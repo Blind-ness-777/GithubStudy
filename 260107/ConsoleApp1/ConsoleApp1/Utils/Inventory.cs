@@ -12,9 +12,6 @@
         
         itemSlots[emptySlotIndex] = item;
         return true;
-        
-        _itemMenu.Add(item.Name, item.Use);
-        item.Inventory = this;
     }
 
     public void Remove(int slotIndex)
@@ -55,6 +52,31 @@
     }
     
     public void Render()
+    {
+        if (!IsActive) return;
+        
+        _itemMenu.Render(15, 1);
+    }
+
+    public void Select()
+    {
+        if (!IsActive) return;
+        _itemMenu.Select();
+    }
+
+    public void SelectLeft()
+    {
+        if (!IsActive) return;
+        _itemMenu.SelectLeft();
+    }
+
+    public void SelectRight()
+    {
+        if (!IsActive) return;
+        _itemMenu.SelectRight();
+    }
+
+    public void Remove()
     {
         
     }

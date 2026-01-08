@@ -38,7 +38,14 @@ public class MenuList
 
     public void Select()
     {
+        if (_menus.Count == 0) return;
+        
         _menus[_currentIndex].action?.Invoke();
+
+        if (_currentIndex >= _menus.Count)
+        {
+            _currentIndex = _menus.Count - 1;
+        }
     }
 
     public void Add(string text, Action action)
@@ -88,6 +95,16 @@ public class MenuList
         
         if(_currentIndex >= _menus.Count) 
             _currentIndex = _menus.Count - 1;
+    }
+
+    public void SelectLeft()
+    {
+        
+    }
+
+    public void SelectRight()
+    {
+        
     }
 
     public void Render(int x, int y)
