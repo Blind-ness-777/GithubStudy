@@ -2,8 +2,7 @@
 {
     public override void Use()
     {
-        Inventory.Remove(this);
-        Inventory = null;
+        
         
         Debug.Log("Potion used");
     }

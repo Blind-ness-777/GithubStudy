@@ -42,10 +42,8 @@ public class MenuList
         
         _menus[_currentIndex].action?.Invoke();
 
-        if (_currentIndex >= _menus.Count)
-        {
-            _currentIndex = _menus.Count - 1;
-        }
+        if (_menus.Count == 0) _currentIndex = 0;
+        else if (_currentIndex >= _menus.Count) _currentIndex = _menus.Count - 1;
     }
 
     public void Add(string text, Action action)

@@ -4,6 +4,8 @@
     // Item : GameObject
     // Potion : Item, IInteractable
     
+    public ObservableProperty<int> Health = new ObservableProperty<int>(100);
+    
     public Tile[,] Field { get; set; }
     private Inventory _inventory = new Inventory();
     public bool IsActiveConrtol { get; private set; }
@@ -13,6 +15,9 @@
     public void Init()
     {
         Symbol = 'P';
+        IsActiveConrtol = true;
+        Health.AddListener(SetHealthGauge);
+        _healthGauge = "■■■■■";
     }
     
     public void Update()
@@ -64,6 +69,7 @@
     {
         _inventory.IsActive = !_inventory.IsActive;
         IsActiveConrtol = !IsActiveConrtol;
+        
     }
     
     private void Move(Vector direction)
@@ -80,8 +86,6 @@
         Field[Position.Y, Position.X].OnTileObject = null;
         Field[nextPos.Y, nextPos.X].OnTileObject = this;
         Position = nextPos;
-        
-        Debug.LogWarning($"플레이어 이동 : ({current.X}, {current.Y}) -> ({nextPos.X}, {nextPos.Y})");
     }
 
     public void Render()
@@ -92,5 +96,35 @@
     public void AddItem(Item item)
     {
         _inventory.TryAdd(item);
+    }
+
+    private string _healthGauge;
+
+    public void DrawHealthGauge()
+    {
+        Console.SetCursorPosition(Position.X - 2, Position.Y - 1);
+        _healthGauge.Print(ConsoleColor.Red);
+    }
+    
+    public void SetHealthGauge(int health)
+    {
+        switch (health)
+        {
+            case 5:
+                _healthGauge = "■■■■■";
+                break;
+            case 4:
+                _healthGauge = "■■■■□";
+                break;
+            case 3:
+                _healthGauge = "■■■□□";
+                break;
+            case 2:
+                _healthGauge = "■■□□□";
+                break;
+            case 1:
+                _healthGauge = "■□□□□";
+                break;
+        }
     }
 }
