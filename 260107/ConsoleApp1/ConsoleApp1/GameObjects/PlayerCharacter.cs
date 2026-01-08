@@ -33,7 +33,8 @@
     
     private void Move(Vector direction)
     {
-        Vector nextPos = Position + direction;
+        Vector current = Position;
+        Vector nextPos = Position + direction;  
         
         // 예외 처리
         // 1. 맵 바깝 여부
@@ -42,5 +43,7 @@
         Field[Position.Y, Position.X].OnTileObject = null;
         Field[nextPos.Y, nextPos.X].OnTileObject = this;
         Position = nextPos;
+        
+        Debug.LogWarning($"플레이어 이동 : ({current.X}, {current.Y}) -> ({nextPos.X}, {nextPos.Y})");
     }
 }

@@ -15,6 +15,12 @@
             SceneManager.Render();
             // 키 입력 받고
             InputManager.GetUserInput();
+
+            if (InputManager.GetKey(ConsoleKey.L))
+            {
+                SceneManager.Change("Log");
+            }
+            
             // 데이터 처리
             SceneManager.Update();
             
@@ -30,8 +36,10 @@
         SceneManager.AddScene("Title", new TitleScene());
         SceneManager.AddScene("Story", new StoryScene());
         SceneManager.AddScene("Town", new TownScene(_player));
+        SceneManager.AddScene("Log", new LogScene());
         
         SceneManager.Change("Title");
         
+        Debug.Log("게임 데이터 초기화 완료");
     }
 }

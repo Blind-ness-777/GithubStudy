@@ -9,6 +9,9 @@
         ConsoleKey.LeftArrow,
         ConsoleKey.RightArrow,
         ConsoleKey.Enter,
+        ConsoleKey.I,
+        ConsoleKey.L,
+        ConsoleKey.Z,
     };
 
     public static bool GetKey(ConsoleKey input)
